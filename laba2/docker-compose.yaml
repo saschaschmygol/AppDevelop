@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  # Сервис базы данных PostgreSQL
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - .env
+    volumes:
+      - postgres_data_test:/var/lib/postgresql/data/ # том для сохранения данных
+    networks:
+      - my_network
+
+  web:
+      build: .
+      restart: always
+      command: uvicorn main:app --host 0.0.0.0 --port 8000
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+      env_file:
+        - .env
+      networks:
+        - my_network
+
+volumes:
+  postgres_data_test:
+    name: "postgres_data_test"
+
+networks:
+  my_network:
+    driver: bridge

@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-
+from pydantic import Field  # Field для валидации, если нужно
 
 class DBSettings(BaseSettings):
     host: str
