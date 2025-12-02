@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     volumes:
-      - postgres_data_test:/var/lib/postgresql/data/ # том для сохранения данных
+      - postgres_data_test2:/var/lib/postgresql/data/ # том для сохранения данных
     networks:
       - my_network
 
@@ -28,8 +28,8 @@ services:
         - my_network
 
 volumes:
-  postgres_data_test:
-    name: "postgres_data_test"
+  postgres_data_test2:
+    name: "postgres_data_test2"
 
 networks:
   my_network:
